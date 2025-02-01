@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Question</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #2196F3; /* Blue background */
+            color: #FFEB3B; /* Yellow text */
+            margin: 0;
+            padding: 0;
+            position: relative;
+            height: 100vh;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .message {
+            display: block;
+            font-size: 3vw; /* Small font size for the first paragraph */
+            font-weight: bold;
+            margin-top: 10vh;
+            color: #FFEB3B; /* Yellow text */
+            line-height: 1.2;
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1; /* Ensure text is above buttons */
+        }
+        .word {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .buttons {
+            position: absolute;
+            bottom: 10vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: none;
+            z-index: 2;
+        }
+        button {
+            font-size: 30px;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, opacity 0.3s;
+            position: relative;
+        }
+        button#yesButton {
+            background: #4CAF50; /* Green */
+            color: white;
+        }
+        button#yesButton:hover {
+            background: #45a049;
+        }
+        button#noButton {
+            background: #f44336; /* Red */
+            color: white;
+        }
+        button#noButton:hover {
+            background: #d32f2f;
+        }
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #ff4081;
+            animation: confettiFall 1.5s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        button#continueButton {
+            background: #003366; /* Dark blue */
+            color: white;
+        }
+        button#continueButton:hover {
+            background: #002244;
+        }
+
+        /* Confetti styles */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            overflow: hidden;
+            display: none; /* Hidden initially */
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #FFEB3B; /* Yellow confetti */
+            animation: confettiFall 5s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .question {
+            font-size: 8vw; /* Large text size */
+            font-weight: bold;
+            margin-top: 10vh;
+            color: #FFEB3B; /* Yellow text */
+            line-height: 1.2;
+            text-align: center;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <span class="word" id="word1">Hi</span>
+        <span class="word" id="word2">Bailey!</span>
+        <span class="word" id="word3">From</span>
+        <span class="word" id="word4">the</span>
+        <span class="word" id="word5">moment</span>
+        <span class="word" id="word6">I</span>
+        <span class="word" id="word7">first</span>
+        <span class="word" id="word8">saw</span>
+        <span class="word" id="word9">you,</span>
+        <span class="word" id="word10">something</span>
+        <span class="word" id="word11">clicked</span>
+        <span class="word" id="word12">in</span>
+        <span class="word" id="word13">my</span>
+        <span class="word" id="word14">heart,</span>
+        <span class="word" id="word15">and</span>
+        <span class="word" id="word16">I</span>
+        <span class="word" id="word17">couldn't</span>
+        <span class="word" id="word18">help</span>
+        <span class="word" id="word19">but</span>
+        <span class="word" id="word20">be</span>
+        <span class="word" id="word21">drawn</span>
+        <span class="word" id="word22">to</span>
+        <span class="word" id="word23">you.</span>
+        <span class="word" id="word24">I</span>
+        <span class="word" id="word25">love</span>
+        <span class="word" id="word26">everything</span>
+        <span class="word" id="word27">about</span>
+        <span class="word" id="word28">you.</span>
+        <span class="word" id="word29">It's</span>
+        <span class="word" id="word30">honestly</span>
+        <span class="word" id="word31">impossible</span>
+        <span class="word" id="word32">for</span>
+        <span class="word" id="word33">me</span>
+        <span class="word" id="word34">to</span>
+        <span class="word" id="word35">imagine</span>
+        <span class="word" id="word36">not</span>
+        <span class="word" id="word37">having</span>
+        <span class="word" id="word38">you</span>
+        <span class="word" id="word39">in</span>
+        <span class="word" id="word40">my</span>
+        <span class="word" id="word41">life.</span>
+        <span class="word" id="word42">So,</span>
+        <span class="word" id="word43">the</span>
+        <span class="word" id="word44">question</span>
+        <span class="word" id="word45">I</span>
+        <span class="word" id="word46">have</span>
+        <span class="word" id="word47">for</span>
+        <span class="word" id="word48">you</span>
+        <span class="word" id="word49">is...</span>
+    </div>
+
+    <div class="buttons" id="continueButtonWrapper" style="display: block;">
+        <button id="continueButton" onclick="showQuestion()">Continue</button>
+    </div>
+
+    <div class="question">
+        <span class="word" id="word50">WILL</span>
+        <span class="word" id="word51">YOU</span>
+        <span class="word" id="word52">BE</span>
+        <span class="word" id="word53">MY</span>
+        <span class="word" id="word54">GIRLFRIEND?</span>
+    </div>
+
+    <div class="buttons" id="yesNoButtons" style="display:none;">
+        <button id="yesButton" onclick="sendResponse('yes')">Yes</button>
+        <button id="noButton" onmouseover="replaceNoButtonWithYes()" onclick="sendResponse('no')">No</button>
+    </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script>
+        const messageElement = document.querySelector(".message");
+        const words = document.querySelectorAll(".word");
+        const continueButton = document.getElementById("continueButton");
+        const continueButtonWrapper = document.getElementById("continueButtonWrapper");
+        const questionElement = document.querySelector(".question");
+        const questionWords = document.querySelectorAll(".question .word");
+        const yesNoButtons = document.getElementById("yesNoButtons");
+        const yesButton = document.getElementById("yesButton");
+        const noButton = document.getElementById("noButton");
+        const confettiContainer = document.getElementById("confettiContainer");
+
+        function showMessage() {
+            messageElement.style.display = "block";
+            words.forEach((word, index) => {
+                setTimeout(() => {
+                    word.style.opacity = 1;
+                }, index * 500);
+            });
+        }
+
+        function showQuestion() {
+            messageElement.style.display = "none"; // Hide first paragraph
+            continueButtonWrapper.style.display = "none"; // Hide continue button
+            questionElement.style.display = "block"; // Show question text
+
+            // Animate the question words
+            questionWords.forEach((word, index) => {
+                setTimeout(() => {
+                    word.style.opacity = 1;
+                }, index * 500);
+            });
+
+            // Show the buttons after the question text is fully displayed
+            setTimeout(() => {
+                yesNoButtons.style.display = "flex"; // Use flex for better alignment
+            }, questionWords.length * 500 + 1000); // Add extra delay for smooth transition
+        }
+
+        function sendResponse(response) {
+            if (response === 'yes') {
+                // Change the text to "YAY I LOVE YOU"
+                document.body.innerHTML = `
+                    <h1 style="font-size: 100px; color: #FFEB3B; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1;">
+                        YAY I LOVE YOU
+                    </h1>
+                `
+                 // Trigger confetti
+                 triggerConfetti();
+                ;
+
+                // Show confetti for 60 seconds
+                confettiContainer.style.display = "block";
+                createConfetti();
+                setTimeout(() => {
+                    confettiContainer.style.display = "none";
+                }, 60000); // Stop confetti after 60 seconds
+            } else {
+                document.body.innerHTML = '<h1 style="font-size:100px; color:#f44336;">TRY AGAIN IDIOT</h1>';
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+        // Function to trigger confetti
+        function triggerConfetti() {
+            const confettiContainer = document.createElement("div");
+            confettiContainer.classList.add("confetti");
+            document.body.appendChild(confettiContainer);
+
+            for (let i = 0; i < 200; i++) {
+                const confettiPiece = document.createElement("div");
+                confettiPiece.classList.add("confetti-piece");
+                confettiPiece.style.left = `${Math.random() * 100}%`;
+                confettiPiece.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                confettiContainer.appendChild(confettiPiece);
+            }
+
+            // Set confetti to last for 60 seconds
+            setTimeout(() => {
+                confettiContainer.remove(); // Remove confetti after 60 seconds
+            }, 60000); // 60 seconds (60000 milliseconds)
+        }
+
+        function replaceNoButtonWithYes() {
+            // Replace the No button with a green Yes button
+            noButton.textContent = 'Yes'; // Change text to "Yes"
+            noButton.style.backgroundColor = '#4CAF50'; // Make it green
+            noButton.style.color = 'white'; // Ensure text is white
+            noButton.onmouseover = null; // Remove the hover event to prevent flickering
+            noButton.onclick = function() { sendResponse('yes'); }; // Change the click behavior
+        }
+
+        function createConfetti() {
+            const confettiCount = 200; // Number of confetti pieces
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement("div");
+                confetti.classList.add("confetti-piece");
+                confetti.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+                confetti.style.animationDelay = `${Math.random() * 2}s`; // Random delay
+                confettiContainer.appendChild(confetti);
+            }
+        }
+
+        showMessage(); // Start the message effect
+    </script>
+</body>
+</html>
